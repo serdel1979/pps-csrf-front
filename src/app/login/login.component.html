@@ -1,1 +1,24 @@
-<p>login works!</p>
+<h2>Login</h2>
+
+<div class="container">
+	<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+		<label>Usuario</label>
+		<input type="text" formControlName="user" class="form-control" [ngClass]="{ 'is-invalid': form['user'].errors }" />
+		<div *ngIf="form['user'].errors" class="invalid-feedback">
+			<div *ngIf="form['user'].errors['required']">El email es obligatorio</div>
+			<div *ngIf="form['user'].errors['email']">El email debe de ser válido</div>
+		</div>
+    <br>
+		<label>Contraseña</label>
+		<input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': form['password'].errors }" />
+		<div *ngIf="form['password'].errors" class="invalid-feedback">
+			<div *ngIf="form['password'].errors['required']">La contraseña es obligatoria</div>
+			<div *ngIf="form['password'].errors['minlength']">La contraseña debe tener mas de 6 caracteres</div>
+		</div>
+    <br>
+		<div class="text-center">
+			<button class="btn btn-primary mr-1" [disabled]="loginForm.invalid">Registrarse</button>
+			<button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+		</div>
+	</form>
+</div>
