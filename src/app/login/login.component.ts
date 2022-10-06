@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) { 
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { 
     this.loginForm = this.formBuilder.group(
       {
         user: ["", [Validators.required]],
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
     }
     this.loginService.login(this.loginForm.value)
       .subscribe((data: any) => {
-        console.log(data);
+        this.router.navigate(['/home']);
       }, (err: any) => {
         alert(`Error ${err.message}`);
       });
