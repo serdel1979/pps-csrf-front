@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BanckService } from '../services/bank.service';
 import { Transferencia } from './transfer.interface';
@@ -10,15 +11,65 @@ import { Transferencia } from './transfer.interface';
 })
 export class HomeComponent implements OnInit {
 
-  constructor( private router: Router, private bankService: BanckService) { }
-
 
   transferencias!: Transferencia[];
+  transferForm: FormGroup;
+  submitted = false;
+  nuevatr: boolean = false;
+  estado: string="Nueva";
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private bankService: BanckService) {
+    this.transferForm = this.formBuilder.group(
+      {
+        destinatario: ["", [Validators.required]],
+        monto: ["", [Validators.required]]
+      }
+    );
+  }
+
+
+
 
   ngOnInit(): void {
-    this.bankService.getTransferencias().subscribe(data=>{
+    this.cargar();
+  }
+
+  cargar(){
+    this.bankService.getTransferencias().subscribe(data => {
       this.transferencias = data;
     })
+  }
+
+  get form() {
+    return this.transferForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.transferForm.invalid) {
+      return;
+    }
+    this.bankService.transferir(this.transferForm.value)
+      .subscribe(() => {
+        this.cargar();
+      }, (err: any) => {
+        alert(`Error ${err.message}`);
+      });
+
+  }
+
+
+
+  toggle() {
+    if(this.nuevatr){
+      this.nuevatr = false;
+      this.estado = "Nueva";
+    }else{
+      this.nuevatr = true;
+      this.estado = "Cancelar";
+      this.transferForm.reset();
+    }
+    
   }
 
   logout() {

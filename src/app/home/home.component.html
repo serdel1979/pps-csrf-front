@@ -1,12 +1,34 @@
 <h1>Home</h1>
-<a class="navbar-brand"  style="cursor:pointer;" (click)="logout()">Salir</a>
+<a class="navbar-brand" style="cursor:pointer;" (click)="logout()">Salir</a>
 <hr>
+<button (click)="toggle()">{{ estado }}</button>
+<div *ngIf="nuevatr" class="trans">
+  <form>
+    <form (ngSubmit)="onSubmit()" [formGroup]="transferForm">
+      <input placeholder="Destinatario" type="text" formControlName="destinatario" class="form-control" [ngClass]="{ 'is-invalid': form['destinatario'].errors }" />
+      <div *ngIf="form['destinatario'].errors" class="invalid-feedback">
+        <div *ngIf="form['destinatario'].errors['required']">El destinatario es obligatorio</div>
+      </div>
+      <br>
+      <input placeholder="Monto" type="number" formControlName="monto" class="form-control" [ngClass]="{ 'is-invalid': form['monto'].errors }" />
+      <div *ngIf="form['monto'].errors" class="invalid-feedback">
+        <div *ngIf="form['monto'].errors['required']">El monto es obligatorio</div>
+      </div>
+      <br>
+      <div class="text-center">
+        <button class="btn btn-primary mr-1" [disabled]="transferForm.invalid">Transferir</button>
+      </div>
+    </form>
+  </form>
+</div>
+<h2>Transferencias hechas</h2>
 <table>
-    <caption>Transferencias</caption>
-    <tbody>
-      <tr *ngFor="let t of transferencias">
-        <td>{{ t.destinatario }}</td>
-        <th>{{ t.monto }}</th>
-      </tr>
-    </tbody>
-  </table>
+  <td>Destinatario</td>
+  <th>Monto</th>
+  <tbody>
+    <tr *ngFor="let t of transferencias">
+      <td>{{ t.destinatario }}</td>
+      <th>{{ t.monto }}</th>
+    </tr>
+  </tbody>
+</table>
