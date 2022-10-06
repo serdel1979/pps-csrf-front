@@ -4,13 +4,9 @@
 <table>
     <caption>Transferencias</caption>
     <tbody>
-      <tr>
-        <td>Destino</td>
-        <th>Monto</th>
-      </tr>
-      <tr>
-        <th>Pipo</th>
-        <td>1200</td>
+      <tr *ngFor="let t of transferencias">
+        <td>{{ t.destinatario }}</td>
+        <th>{{ t.monto }}</th>
       </tr>
     </tbody>
   </table>

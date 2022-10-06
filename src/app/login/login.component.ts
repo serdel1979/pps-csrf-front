@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/login.service';
+import { CookieService } from 'ngx-cookie-service';
+import { BanckService } from '../services/bank.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder, private loginService: BanckService, private router: Router, private cookie: CookieService) { 
     this.loginForm = this.formBuilder.group(
       {
         user: ["", [Validators.required]],
@@ -25,6 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const cook = this.cookie.check('cookie-jwt');
+    if (cook) {
+      this.router.navigateByUrl('/home');
+      return;
+    } 
   }
 
   get form() {
