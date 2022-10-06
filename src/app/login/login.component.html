@@ -5,8 +5,7 @@
 		<label>Usuario</label>
 		<input type="text" formControlName="user" class="form-control" [ngClass]="{ 'is-invalid': form['user'].errors }" />
 		<div *ngIf="form['user'].errors" class="invalid-feedback">
-			<div *ngIf="form['user'].errors['required']">El email es obligatorio</div>
-			<div *ngIf="form['user'].errors['email']">El email debe de ser válido</div>
+			<div *ngIf="form['user'].errors['required']">El usuario es obligatorio</div>
 		</div>
     <br>
 		<label>Contraseña</label>
