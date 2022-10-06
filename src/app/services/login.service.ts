@@ -18,4 +18,11 @@ export class LoginService {
       return user;
   }));
   }
+
+
+  logout() {
+    this.cookie.delete('cookie-jwt','/');
+  }
+
+
 }
