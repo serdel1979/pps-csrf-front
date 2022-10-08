@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const cook = this.cookie.check('cookie-jwt');
-    if (cook) {
+    const jwt = localStorage.getItem('token');
+    if (jwt) {
       this.router.navigateByUrl('/home');
       return;
     } 

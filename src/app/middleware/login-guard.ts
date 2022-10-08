@@ -13,8 +13,9 @@ export class LoginGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
     
-    const cookie = this.cookie.check('cookie-jwt');
-    if (!cookie) {
+    //const cookie = this.cookie.check('cookie-jwt');
+    const jwt = localStorage.getItem('token');
+    if (!jwt) {
       this.router.navigateByUrl('/login');
       return false;
     } else {

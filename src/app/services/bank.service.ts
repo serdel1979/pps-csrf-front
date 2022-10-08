@@ -15,7 +15,8 @@ export class BanckService {
 
   login(user: UserLogin): Observable<UserLogin> {
     return this.http.post<any>('http://localhost:5000/auth/login', user).pipe(map((user: UserLogin) => {
-      this.cookie.set('cookie-jwt', user.token, 0.3, '/');
+      localStorage.setItem('token', user.token);
+      //this.cookie.set('cookie-jwt', user.token, 0.3, '/');
       return user;
     }));
   }
@@ -31,7 +32,8 @@ export class BanckService {
 
 
   logout() {
-    this.cookie.delete('cookie-jwt', '/');
+    //this.cookie.delete('cookie-jwt', '/');
+    localStorage.removeItem('token');
   }
 
 
