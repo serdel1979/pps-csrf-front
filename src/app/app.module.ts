@@ -26,7 +26,8 @@ import { JwtInterceptorInterceptor } from './middleware/jwt-interceptor.intercep
       headerName: 'hea-cook-csrf'
     })
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi: true },],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
