@@ -5,14 +5,14 @@
 		<label>Usuario</label>
 		<input type="text" formControlName="user" class="form-control" [ngClass]="{ 'is-invalid': form['user'].errors }" />
 		<div *ngIf="form['user'].errors" class="invalid-feedback">
-			<div *ngIf="form['user'].errors['required']">El usuario es obligatorio</div>
+			<div *ngIf="form['user'].errors['required'] && form['user'].touched">El usuario es obligatorio</div>
 		</div>
     <br>
 		<label>Contraseña</label>
 		<input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': form['password'].errors }" />
 		<div *ngIf="form['password'].errors" class="invalid-feedback">
-			<div *ngIf="form['password'].errors['required']">La contraseña es obligatoria</div>
-			<div *ngIf="form['password'].errors['minlength']">La contraseña debe tener mas de 6 caracteres</div>
+			<div *ngIf="form['password'].errors['required'] && form['password'].touched">La contraseña es obligatoria</div>
+			<div *ngIf="form['password'].errors['minlength'] && form['password'].touched">La contraseña debe tener mas de 6 caracteres</div>
 		</div>
     <br>
 		<div class="text-center">
